@@ -1,0 +1,19 @@
+<!-- contact_list.html -->
+<h1>Contact List</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Contact</button>
+</form>
+<ul>
+    {% for contact in contacts %}
+        <li>
+            {{ contact.name }} - {{ contact.email }}
+            <a href="{% url 'contact_update' contact.pk %}">Edit</a>
+            <form method="POST" action="{% url 'contact_delete' contact.pk %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
